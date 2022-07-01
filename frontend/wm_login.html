@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CamfyVision</title>
+    <style>
+        button {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            font-size: 16px;
+            margin: 4px 3px;
+            cursor: pointer;
+            justify-content: center;
+            align-content: center;
+            margin-left: 40%;
+            width: 300px;
+        }
+
+        div {
+            text-align: center;
+            width: 1500px;
+            height: 700px;
+            padding-top: 30px;
+        }
+        input[type=text]{
+            width: 20%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type=password], select {
+            width: 20%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1> Warehouse Management System </h1>
+        <h2> Warehouse Manager Login </h2>
+        <button onclick="back()">Back</button>
+        <form id="myForm">
+            <label>Username</label><br>
+            <input type="text" name="username" /><br>
+            <label>Password</label><br>
+            <input type="password" name="psswrd" /><br>
+            <button type="submit"> Login</button>
+        </form>
+    </div>
+    
+    <script type="text/javascript">
+
+            const myForm = document.getElementById("myForm");
+
+            myForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+
+                const values = [...formData.entries()];
+                console.log("hi");
+                if (values[0][1] == "admin" && values[1][1] == "admin123") {
+                    location.href = '/CamfyVision_Internship/ui/wm_menu.html';
+                }
+                else {
+                    alert("Please enter valid username or password");
+                }
+            });
+            
+        
+
+        function back() {
+            location.href = '/CamfyVision_Internship/ui/index.html';
+        }
+    </script>
+</body>
+</html>

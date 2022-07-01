@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CamfyVision</title>
+    <style>
+        button {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            font-size: 16px;
+            margin: 4px 3px;
+            cursor: pointer;
+            justify-content: center;
+            align-content: center;
+            margin-left: 37%;
+            width: 400px;
+        }
+
+        div {
+            text-align: center;
+            width: 1500px;
+            height: 700px;
+            padding-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1> Warehouse Management System </h1>
+        <h2> Customer Menu </h2>
+        <button onclick="getStorage()"> Get storage for a product from Warehouse </button>
+        <button onclick="displayProducts()"> View all products from Warehouse </button>
+        <button onclick="logout()"> Logout </button>
+    </div>
+    <script type="text/javascript">
+
+        //alert(" You have successfully logged in");
+
+        function logout() {
+            location.href = '/CamfyVision_Internship/ui/index.html';
+        }
+
+        function getStorage() {
+            location.href = '/CamfyVision_Internship/ui/getStorage.html';
+        }
+
+        function displayProducts() {
+            location.href = '/CamfyVision_Internship/ui/productDisplayCustomer.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CamfyVision</title>
+    <style>
+        button {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            font-size: 16px;
+            margin: 4px 3px;
+            cursor: pointer;
+            justify-content: center;
+            align-content: center;
+            margin-left: 40%;
+            width: 300px;
+        }
+
+        div {
+            text-align: center;
+            width: 1500px;
+            height: 700px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
+        input[type=text] {
+            width: 20%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1> Provide the product data to complete transaction </h1>
+        <button onclick="back()"> Back </button>
+
+        <form class="form" id="myForm">
+            <label for="name">Customer Name:</label><br>
+            <input type="text" id="name" name="customerName" value=""><br>
+
+            <label for="name">Product Name:</label><br>
+            <input type="text" id="name" name="name" value=""><br>
+
+            <label for="cost">Product Cost:</label><br>
+            <input type="text" id="cost" name="cost" value=""><br>
+
+            <label for="desc">Product Description:</label><br>
+            <input type="text" id="desc" name="description" value=""><br>
+
+            <label for="stock">Product Stock:</label><br>
+            <input type="text" id="stock" name="stock" value=""><br>
+
+            <label for="stock">Product Units:</label><br>
+            <input type="text" id="stock" name="units" value=""><br>
+
+            <label for="date">Product Purchase Date:</label><br>
+            <input type="text" id="date" name="purchaseDate" value=""><br>
+
+            <label for="location">Product Location:</label><br>
+            <input type="text" id="location" name="location" value=""><br>
+
+            <label for="MFDdate">Product Manufacture Date:</label><br>
+            <input type="text" id="MFDdate" name="manufctDate" value=""><br>
+
+            <label for="EXPdate">Product Expire Date:</label><br>
+            <input type="text" id="EXPdate" name="expiredate" value=""><br><br>
+
+            <button type="submit"> Add Product to Warehouse </button>
+
+        </form>
+    </div>
+    <script type="text/javascript">
+        const myForm = document.getElementById("myForm");
+
+        myForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            const values = [...formData.entries()];
+
+            console.log(values);
+            console.log(JSON.stringify(formData));
+
+            if (values[0][1] == '' || values[1][1] == '' || values[2][1] == '' || values[3][1] == '' || values[4][1] == '' || values[5][1] == '' || values[6][1] == '' || values[7][1] == '' || values[8][1] == '' || values[9][1] == '') {
+                alert("provide all the details");
+                //document.getElementById("myForm").reset();
+                return;
+            }
+            
+            /*const data = new URLSearchParams();
+
+            for (const pair of formData) {
+                data.append(pair[0], pair[1]);
+            }*/
+            var obj = {};
+            var obj1 = {};
+            //obj[values[0][0]] = values[0][1];
+            obj[values[1][0]] = values[1][1];
+            obj[values[2][0]] = values[2][1];
+            obj[values[3][0]] = values[3][1];
+            obj[values[4][0]] = values[4][1];
+            obj[values[6][0]] = values[6][1];
+            obj[values[7][0]] = values[7][1];
+            obj[values[8][0]] = values[8][1];
+            obj[values[9][0]] = values[9][1];
+
+            obj1[values[0][0]] = values[0][1];
+            obj1["productName"] = values[1][1];
+            obj1["productStock"] = values[4][1];
+            obj1["productUnits"] = values[5][1];
+
+            console.log(JSON.stringify(obj));
+            console.log(JSON.stringify(obj1));
+
+            const uri = `http://localhost:50700/api/Product`;
+            const uri1 = `http://localhost:50700/api/InTransaction`;
+
+            if (confirm(" Are you sure you want to add this product to warehouse ?")) {
+                fetch(uri, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type':
+                            'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify(obj)
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (text) {
+                    console.log(text);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+
+                fetch(uri1, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type':
+                            'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify(obj1)
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (text) {
+                    console.log(text);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+                alert("Product Added Successfully");
+                document.getElementById("myForm").reset();
+            }
+
+        });
+
+        function back() {
+            location.href = '/CamfyVision_Internship/ui/customer_menu.html';
+        }
+    </script>
+</body >
+</html >

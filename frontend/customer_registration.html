@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CamfyVision</title>
+    <style>
+        button {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            font-size: 16px;
+            margin: 4px 3px;
+            cursor: pointer;
+            justify-content: center;
+            align-content: center;
+            margin-left: 40%;
+            width: 300px;
+        }
+
+        div {
+            text-align: center;
+            width: 1500px;
+            height: 700px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
+        input[type=text] {
+            width: 20%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type=password] {
+            width: 20%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1> Warehouse Management System </h1>
+        <h2> Customer Registration </h2>
+        <button onclick="back()">Back</button>
+        <br />
+        <br />
+        <form class="form" id="myForm">
+            <label for="name">Customer Name:</label><br>
+            <input type="text" id="name" name="name" value=""><br>
+
+            <label for="name">Customer Email:</label><br>
+            <input type="text" id="name" name="email" value=""><br>
+
+            <label for="cost">Mobile:</label><br>
+            <input type="text" id="cost" name="mobile" value=""><br>
+
+            <label for="desc">Address:</label><br>
+            <input type="text" id="desc" name="address" value=""><br>
+
+            <label for="stock">Details:</label><br>
+            <input type="text" id="stock" name="details" value=""><br>
+
+            <label for="stock">User ID:</label><br>
+            <input type="text" id="stock" name="userid" value=""><br>
+
+            <label for="date">Password:</label><br>
+            <input type="password" id="date" name="password" value=""><br>
+
+            <label for="date">Confirm Password:</label><br>
+            <input type="password" id="date" name="cpassword" value=""><br>
+            <br />
+            <button type="submit"> Register </button>
+
+        </form>
+    </div>
+    <script type="text/javascript">
+
+        const myForm = document.getElementById("myForm");
+
+        myForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            const values = [...formData.entries()];
+
+            console.log(values);
+            console.log(JSON.stringify(formData));
+
+            var obj = {};
+
+            obj[values[0][0]] = values[0][1];
+            obj[values[1][0]] = values[1][1];
+            obj[values[2][0]] = values[2][1];
+            obj[values[3][0]] = values[3][1];
+            obj[values[4][0]] = values[4][1];
+            obj[values[5][0]] = values[5][1];
+            obj[values[6][0]] = values[6][1];
+
+            //console.log(JSON.stringify(obj));
+            if (values[0][1] == '' || values[1][1] == '' || values[2][1] == '' || values[3][1] == '' || values[4][1] == '' || values[5][1] == '' || values[6][1] == '' || values[7][1] == '') {
+                alert("provide all the details");
+                //document.getElementById("myForm").reset();
+                return;
+            }
+            if (values[6][1] != values[7][1]) {
+                alert("Confirm password is not matching ");
+                return;
+            }
+
+            var c = "true";
+            const uri = `http://localhost:50700/api/Customer`;
+            
+            fetch(uri)
+                .then(response => response.json())
+                .then(data => check(data))
+                .catch(error => console.error('Unable to get items.', error));
+
+            function check(data) {
+                data.forEach(item => {
+                    if (values[5][1] == item["userid"] && values[6][1] == item["password"]) {
+                        alert("Username and password already exist");
+                        //document.getElementById("myForm").reset();
+                        c = "false";
+                        return;
+                    }
+                });
+
+                if (c == "true") {
+                    fetch(uri, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type':
+                                'application/json;charset=utf-8'
+                        },
+                        body: JSON.stringify(obj)
+                    }).then(function (response) {
+                        return response.json();
+                    }).then(function (text) {
+                        console.log(text);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                    alert("You have registered succuessfully");
+                    document.getElementById("myForm").reset();
+                }
+            }
+            
+        });
+
+        function back() {
+            location.href = '/CamfyVision_Internship/ui/index.html';
+        }
+    </script>
+</body>
+</html>

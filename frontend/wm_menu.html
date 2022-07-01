@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CamfyVision</title>
+    <style>
+        button {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            font-size: 16px;
+            margin: 4px 3px;
+            cursor: pointer;
+            justify-content: center;
+            align-content: center;
+            margin-left: 37%;
+            width: 400px;
+        }
+
+        div {
+            text-align: center;
+            width: 1500px;
+            height: 700px;
+            padding-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1> Warehouse Management System </h1>
+        <h2> Warehouse Manager Menu </h2>
+
+        <button onclick="getProducts()"> Display all Products from Warehouse </button>
+        <button onclick="addProduct()"> Add Product to Warehouse </button>
+        <button onclick="getTransport()"> Get the Transport Service from supplier </button>
+        <button onclick="getCustomer()"> Display all customers </button>
+        <button onclick="logout()"> Logout </button>
+    </div>
+    <script type="text/javascript">
+
+        //alert(" You have successfully logged in")
+        function getProducts() {
+            location.href = '/CamfyVision_Internship/ui/productDisplay.html';
+        }
+
+        function addProduct() {
+            location.href = '/CamfyVision_Internship/ui/product.html';
+        }
+
+        function getCustomer() {
+            location.href = '/CamfyVision_Internship/ui/customerDisplay.html';
+        }
+        function getTransport() {
+            location.href = '/CamfyVision_Internship/ui/getTransport.html'
+        }
+        function logout() {
+            location.href = '/CamfyVision_Internship/ui/index.html';
+        }
+
+    </script>
+</body>
+</html>

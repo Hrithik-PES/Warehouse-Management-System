@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CamfyVision</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        button {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            font-size: 16px;
+            margin: 4px 3px;
+            cursor: pointer;
+            justify-content: center;
+            align-content: center;
+            margin-left: 40%;
+            margin-top:-1%;
+            width: 300px;
+        }
+
+        div {
+            text-align: center;
+            width: 1500px;
+            height: 150px;
+            padding-top: 15px;
+        } 
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1> All the product details are here </h1><br>
+        <button onclick="back()"> Back </button><br>
+    </div>
+    
+    <script type="text/javascript">
+        const uri = `http://localhost:50700/api/Product`;
+
+        fetch(uri)
+            .then(response => response.json())
+            .then(data => display(data))
+            .catch(error => console.error('Unable to get items.', error));
+
+        function display(data) {
+
+            const mainUL = document.createElement('table');
+            const h = document.createElement('tr');
+            const itemID = document.createElement('th');
+            const itemName = document.createElement('th');
+            const itemCost = document.createElement('th');
+            const itemDescription = document.createElement('th');
+            const itemStock = document.createElement('th');
+            const itemPurchaseDate = document.createElement('th');
+            const itemLocation = document.createElement('th');
+            const itemMFDate = document.createElement('th');
+            const itemEXPDate = document.createElement('th');
+
+            itemID.innerHTML = "ID";
+            itemName.innerHTML = "Name";
+            itemCost.innerHTML = "Cost";
+            itemDescription.innerHTML = "Description";
+            itemStock.innerHTML = "Stock";
+            itemPurchaseDate.innerHTML = "PurchaseDate";
+            itemLocation.innerHTML = "Location";
+            itemMFDate.innerHTML = "ManufactureDate";
+            itemEXPDate.innerHTML = "ExpireDate";
+
+            h.appendChild(itemID);
+            h.appendChild(itemName);
+            h.appendChild(itemCost);
+            h.appendChild(itemDescription);
+            h.appendChild(itemStock);
+            h.appendChild(itemPurchaseDate);
+            h.appendChild(itemLocation);
+            h.appendChild(itemMFDate);
+            h.appendChild(itemEXPDate);
+
+            mainUL.appendChild(h);
+
+            data.forEach(item => {
+                const itemLI = document.createElement('tr')
+                const itemID = document.createElement('td');
+                const itemName = document.createElement('td');
+                const itemCost = document.createElement('td');
+                const itemDescription = document.createElement('td');
+                const itemStock = document.createElement('td');
+                const itemPurchaseDate = document.createElement('td');
+                const itemLocation = document.createElement('td');
+                const itemMFDate = document.createElement('td');
+                const itemEXPDate = document.createElement('td');
+
+                itemID.innerHTML = item["id"];
+                itemName.innerHTML = item["name"];
+                itemCost.innerHTML = item["cost"];
+                itemDescription.innerHTML = item["description"];
+                itemStock.innerHTML = item["stock"];
+                itemPurchaseDate.innerHTML = item["purchaseDate"];
+                itemLocation.innerHTML = item["location"];
+                itemMFDate.innerHTML = item["manufctdate"];
+                itemEXPDate.innerHTML = item["expiredate"]
+
+                itemLI.appendChild(itemID);
+                itemLI.appendChild(itemName);
+                itemLI.appendChild(itemCost);
+                itemLI.appendChild(itemDescription);
+                itemLI.appendChild(itemStock);
+                itemLI.appendChild(itemPurchaseDate);
+                itemLI.appendChild(itemLocation);
+                itemLI.appendChild(itemMFDate);
+                itemLI.appendChild(itemEXPDate);
+
+                mainUL.appendChild(itemLI);
+
+            });
+
+            document.body.appendChild(mainUL);
+        }
+
+        function back() {
+            //document.getElementsByTagName("li").remove();
+            location.href = '/CamfyVision_Internship/ui/wm_menu.html';
+        }
+    </script>
+</body>
+</html>

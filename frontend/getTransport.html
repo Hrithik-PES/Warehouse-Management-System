@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CamfyVision</title>
+    <style>
+        button {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            font-size: 16px;
+            margin: 4px 3px;
+            cursor: pointer;
+            justify-content: center;
+            align-content: center;
+            margin-left: 40%;
+            width: 300px;
+        }
+
+        div {
+            text-align: center;
+            width: 1500px;
+            height: 700px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
+        input[type=text] {
+            width: 20%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1> Transportation Service </h1>
+
+        <h1> Provide the product data to complete transaction </h1>
+        <button onclick="back()"> Back </button>
+
+        <form class="form" id="myForm">
+            <label for="name">Supplier Name:</label><br>
+            <input type="text" id="name" name="supplierName" value=""><br>
+
+            <label for="name">Product Name:</label><br>
+            <input type="text" id="name" name="productName" value=""><br>
+
+            <label for="cost">Product Stock:</label><br>
+            <input type="text" id="cost" name="productStock" value=""><br>
+
+            <label for="desc">Product Units:</label><br>
+            <input type="text" id="desc" name="units" value=""><br>
+
+            <button type="submit"> Get the Transport Service </button>
+
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        const myForm = document.getElementById("myForm");
+
+        myForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            const values = [...formData.entries()];
+
+            //console.log(values);
+            //console.log(JSON.stringify(formData));
+
+            var obj = {};
+
+            obj["supplierName"] = values[0][1];
+            obj["productName"] = values[1][1];
+            obj["productStock"] = parseInt(values[2][1]);
+
+            var obj1 = JSON.stringify(obj);
+
+            console.log(obj1);
+            if (values[0][1] == '' || values[1][1] == '' || values[2][1] == '' || values[3][1] == '' ) {
+                alert("provide all the details");
+                //document.getElementById("myForm").reset();
+                return;
+            }
+
+            var uri = 'http://localhost:50700/api/OutTransaction/2?units=';
+
+            var uri1 = uri + values[3][1];
+
+            //var id;
+            fetch(uri1, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type':
+                        'application/json;charset=utf-8'
+                },
+                body: obj1
+            }).then(function (response) {
+                return response.json();
+            }).then(function (text) {
+                console.log(text);
+                alert("Transaction Successfully Completed");
+                document.getElementById("myForm").reset();
+                location.href = '/CamfyVision_Internship/ui/outtrbill.html?' + 'id=' + text;
+            }).catch(function (error) {
+                console.log(error);
+            });
+            //alert("Transaction Successfully Completed");
+            //document.getElementById("myForm").reset();
+           // location.href = '/CamfyVision_Internship/ui/outtrbill.html';
+        });
+
+        function back() {
+            location.href = '/CamfyVision_Internship/ui/wm_menu.html';
+        }
+     </script>
+</body>
+</html>

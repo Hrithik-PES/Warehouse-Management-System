@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CamfyVision</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        button {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            font-size: 16px;
+            margin: 4px 3px;
+            cursor: pointer;
+            justify-content: center;
+            align-content: center;
+            margin-left: 40%;
+            margin-top: -1%;
+            width: 300px;
+        }
+
+        div {
+            text-align: center;
+            width: 1500px;
+            height: 150px;
+            padding-top: 15px;
+        } 
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1> All the customer details are here </h1><br>
+        <button onclick="back()"> Back </button><br />
+    </div>
+    <script type="text/javascript">
+        const uri = `http://localhost:50700/api/Customer`;
+
+        fetch(uri)
+            .then(response => response.json())
+            .then(data => display(data))
+            .catch(error => console.error('Unable to get items.', error));
+
+        function display(data) {
+
+            const mainUL = document.createElement('table');
+            const h = document.createElement('tr');
+            const id = document.createElement('th');
+            const name = document.createElement('th');
+            const email = document.createElement('th');
+            const mobile = document.createElement('th');
+            const address = document.createElement('th');
+            const details = document.createElement('th');
+            
+
+            id.innerHTML = "ID";
+            name.innerHTML = "Name";
+            email.innerHTML = "Email";
+            mobile.innerHTML = "Mobile";
+            address.innerHTML = "Address";
+            details.innerHTML = "Details";
+
+            h.appendChild(id);
+            h.appendChild(name);
+            h.appendChild(email);
+            h.appendChild(mobile);
+            h.appendChild(address);
+            h.appendChild(details);
+
+            mainUL.appendChild(h);
+
+            data.forEach(item => {
+                const cLI = document.createElement('tr')
+                const id = document.createElement('td');
+                const name = document.createElement('td');
+                const email = document.createElement('td');
+                const mobile = document.createElement('td');
+                const address = document.createElement('td');
+                const details = document.createElement('td');
+
+                id.innerHTML = item["id"];
+                name.innerHTML = item["name"];
+                email.innerHTML = item["email"];
+                mobile.innerHTML = item["mobile"];
+                address.innerHTML = item["address"];
+                details.innerHTML = item["details"];
+               
+
+                cLI.appendChild(id);
+                cLI.appendChild(name);
+                cLI.appendChild(email);
+                cLI.appendChild(mobile);
+                cLI.appendChild(address);
+                cLI.appendChild(details);
+
+                mainUL.appendChild(cLI);
+
+            });
+
+            document.body.appendChild(mainUL);
+        }
+
+        function back() {
+            //document.getElementsByTagName("li").remove();
+            location.href = '/CamfyVision_Internship/ui/wm_menu.html';
+        }
+    </script>
+</body>
+</html>

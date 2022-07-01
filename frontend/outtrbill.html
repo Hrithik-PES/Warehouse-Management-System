@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CamfyVision</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 30%;
+            margin-left:530px;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        button {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            font-size: 16px;
+            margin: 4px 3px;
+            cursor: pointer;
+            justify-content: center;
+            align-content: center;
+            margin-left: 40%;
+            margin-top: -1%;
+            width: 300px;
+        }
+
+        div {
+            text-align: center;
+            width: 1500px;
+            height: 150px;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1> Transportation Service Bill </h1>
+        <table>
+            <tr>
+                <th>Supplier Name</th>
+                <td id="sname"></td>
+            </tr>
+            <tr>
+                <th>Product Name</th>
+                <td id="pname"></td>
+            </tr>
+            <tr>
+                <th>Product Stock</th>
+                <td id="stock"></td>
+            </tr>
+            <tr>
+                <th>Product Units</th>
+                <td id="units"></td>
+            </tr>
+            <tr>
+                <th>Transaction ID</th>
+                <td id="tid"></td>
+            </tr>
+            <tr>
+                <th>Transaction Date</th>
+                <td id="date"></td>
+            </tr>
+            <tr>
+                <th>Total Amount</th>
+                <td id="amount"></td>
+            </tr>
+        </table>
+        <h2 id="tamount">Total Bill Amount = </h2>
+        <button onclick="pay()">Pay</button>
+    </div>
+    <script type="text/javascript">
+
+        const uri = 'http://localhost:50700/api/OutTransaction/' + window.location.href.substring(window.location.href.indexOf('=') + 1);
+
+        fetch(uri)
+            .then(response => response.json())
+            .then(data => display(data))
+            .catch(error => console.error('Unable to get items.', error));
+
+        function display(data) {
+
+            data.forEach(item => {
+                document.getElementById("sname").innerHTML = item["supplierName"];
+                document.getElementById("pname").innerHTML = item["productName"];
+                document.getElementById("stock").innerHTML = item["productStock"];
+                document.getElementById("units").innerHTML = item["productUnits"];
+                document.getElementById("amount").innerHTML = item["amount"];
+                document.getElementById("tid").innerHTML = item["id"];
+                document.getElementById("date").innerHTML = item["date"];
+                document.getElementById("tamount").innerText = document.getElementById("tamount").innerText + item["amount"];
+            });
+        }
+
+        function pay() {
+            alert("Amount Paid Successfully, Thank You.");
+            location.href = '/CamfyVision_Internship/ui/wm_menu.html';
+        }
+    </script>
+</body>
+</html>

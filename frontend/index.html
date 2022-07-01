@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CamfyVision</title>
+    <style>
+        button {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            font-size: 16px;
+            margin: 4px 3px;
+            cursor: pointer;
+            justify-content: center;
+            align-content: center;
+            margin-left:40%;
+            width:300px;
+        }
+         div{
+            text-align: center;
+            width: 1500px;
+            height: 700px;
+            padding-top: 30px;
+        } 
+    </style>
+</head>
+<body>
+    <div>
+        <h1> Warehouse Management System </h1>
+        <h2 id="user-id"></h2>
+        <h2 id="user-name"></h2>
+        <img id="driver-img" />
+        <p id="data"></p>
+        <button onclick="WarehouseManager()"> Login as Warehouse Manager </button><br />
+        <button onclick="Customer()"> Login as Customer </button><br />
+        <button onclick="CustomerRegister()"> Register as Customer </button>
+    </div>
+    <script type="text/javascript">
+
+        function WarehouseManager() {
+            location.href = '/CamfyVision_Internship/ui/wm_login.html';
+        }
+
+        function Customer() {
+            //document.getElementById("data").innerHTML = "Form";
+            location.href = '/CamfyVision_Internship/ui/customer_login.html';
+        }
+
+        function CustomerRegister() {
+            location.href = '/CamfyVision_Internship/ui/customer_registration.html';
+        }
+
+    </script>
+</body>
+</html>
